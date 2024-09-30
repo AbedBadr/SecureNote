@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+<title>Non Secure Note</title>
+{% block head%}
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center;">Notes</h1>
+
+    <table>
+        <tr>
+            <th>Note</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for note in notes %}
+        <tr>
+            <td>
+                <b>{{ note.title }}</b>
+                <br>
+                {{ note.content }}
+            </td>
+            <td>{{ note.date_created.date() }}</td>
+            <td>
+                <a href="">Update</a>
+                <br>
+                <a href="">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/" method="POST" id="submitNote">
+        <label for="noteTitle">Note title</label>
+        <input type="text" name="title" id="title" placeholder="The title of the note..">
+        <label for="noteContent">Note content</label>
+        <input type="text" name="content" id="content" placeholder="The content of the note..">
+        <input type="submit" value="Add note">
+    </form>
+</div>
+{% endblock %}
