@@ -33,6 +33,38 @@ def index():
     else:
         notes = Notes.query.order_by(Notes.date_created).all()
         return render_template('index.html', notes=notes)
+    
+@app.route("/note/<int:id>")
+def view_note(id):
+    note = Notes.query.get_or_404(id)
+    return render_template('view_note.html', note=note)
+
+@app.route("/update/<int:id>", methods=['GET', 'POST'])
+def update(id):
+    note = Notes.query.get_or_404(id)
+
+    if request.method == 'POST':
+        note.title = request.form['title']
+        note.content = request.form['content']
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue updating your note'
+    else:
+        return render_template('update.html', note=note)
+
+@app.route("/delete/<int:id>")
+def delete(id):
+    note_to_delete = Notes.query.get_or_404(id)
+
+    try:
+        db.session.delete(note_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was an issue deleting your note'
 
 if __name__ == "__main__":
     app.run(debug=True)
