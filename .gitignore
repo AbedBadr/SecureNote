@@ -5,4 +5,5 @@
 .vscode/
 
 # database files
+instance/note.db
 instance/*.db
