@@ -3,3 +3,7 @@
 
 # vscode folder for Visual Studio Code
 .vscode/
+
+# database files
+instance/note.db
+instance/*.db
